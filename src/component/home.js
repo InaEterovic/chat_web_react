@@ -3,8 +3,8 @@ import React from 'react';
 class Home extends React.Component{
 
     handleClick = (buttonName) => {
-        if(buttonName ==='register')
-        this.props.history.push("/register");
+        if(buttonName ==='signUp')
+        this.props.history.push("/signUp");
         if(buttonName ==='login')
         this.props.history.push("/login");
     }
@@ -16,7 +16,7 @@ class Home extends React.Component{
             <div>
                 <h1>Welcome</h1>
                 <button onClick={()=>this.handleClick('login')}>Login</button>
-                <button onClick={()=>this.handleClick('register')} type="button">Register</button>
+                <button onClick={()=>this.handleClick('signUp')} type="button">Sign Up</button>
             </div>
         )
     }

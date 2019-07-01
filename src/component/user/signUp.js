@@ -1,8 +1,9 @@
 import firebase from 'firebase';
-import React from 'react';
+import React,{useCallback } from 'react';
 import {db} from '../../firebase';
+import {withRouter} from 'react-router';
 
-class Register extends React.Component{
+class SignUp extends React.Component{
 
     constructor(props){
         super(props);
@@ -21,12 +22,8 @@ class Register extends React.Component{
     addUser= e =>{
         e.preventDefault();
         const db =firebase.firestore();
-        db.settings({
-            timestampsInSnapshots: true
-          });
           const userRef = db.collection('users').add({
             email: this.state.email,
-            password: this.state.password,
             name: this.state.name
           }); 
         this.setState({
@@ -34,33 +31,34 @@ class Register extends React.Component{
             password:'',
             name:''
         })
-
-        
+        const auth = 
+        firebase.auth().createUserWithEmailAndPassword( this.state.email, this.state.password);
+        this.props.history.push("/chat");       
     }
 
     render(){
     return (
             <form onSubmit={this.addUser}>
                 <h2>Fill out your information</h2>
-                <input type="text" 
+                <input type="email" 
                        name="email"
-                       placeholder="write your email"
+                       placeholder="Email"
                        onChange={this.handleInputChange}
                        value={this.state.email}/>
-                <input type="text" 
+                <input type="password" 
                        name="password"
-                       placeholder="write a password"
+                       placeholder="Password"
                        onChange={this.handleInputChange}
                        value={this.state.password}/>
                 <input type="text"
                        name="name"
-                       placeholder="write your name"
+                       placeholder="Full Name"
                        onChange={this.handleInputChange}
                        value={this.state.name}/>
-                <button type="submit">Register</button>
+                <button type="submit">Sign Up</button>
             </form>
         )
     }
 }
 
-export default Register;
+export default SignUp;

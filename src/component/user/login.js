@@ -1,13 +1,48 @@
-import React from 'react';
+import React, { useCallback, useContext } from "react";
+import { withRouter, Redirect } from "react-router";
+import firebaseApp from "../../firebase";
+import { AuthContext } from "../../Auth";
 
-class Login extends React.Component{
-    render(){
-        return(
-            <div>
-                <h1>Login</h1>
-            </div>
-        );
-    }
-}
+const Login = ({ history }) => {
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await firebaseApp
+          .auth
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push("/chat");
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    [history]
+  );
 
-export default Login;
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/chat" />;
+  }
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleLogin}>
+        <label>
+          Email
+          <input name="email" type="email" placeholder="Email" />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" placeholder="Password" />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+};
+
+export default withRouter(Login);
