@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+
 
 class Home extends React.Component{
 
@@ -15,8 +17,8 @@ class Home extends React.Component{
         return(
             <div>
                 <h1>Welcome</h1>
-                <button onClick={()=>this.handleClick('login')}>Login</button>
-                <button onClick={()=>this.handleClick('signUp')} type="button">Sign Up</button>
+                <Button variant="contained" color="primary" onClick={()=>this.handleClick('login')}>Login</Button>
+                <Button variant="contained" color="primary" onClick={()=>this.handleClick('signUp')} type="button">Sign Up</Button>
             </div>
         )
     }

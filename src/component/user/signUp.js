@@ -21,18 +21,18 @@ class SignUp extends React.Component{
 
     addUser= e =>{
         e.preventDefault();
-        const db =firebase.firestore();
-          const userRef = db.collection('users').add({
-            email: this.state.email,
-            name: this.state.name
-          }); 
-        this.setState({
-            email:'',
-            password:'',
-            name:''
-        })
+        const name = this.state.name;
         const auth = 
-        firebase.auth().createUserWithEmailAndPassword( this.state.email, this.state.password);
+        firebase.auth().createUserWithEmailAndPassword( this.state.email, this.state.password)
+        .then(()=> {
+          let user = firebase.auth().currentUser;
+          user.updateProfile({
+            displayName: name
+          })
+        }).catch(function(error) {
+          console.log(error);
+        });
+        
         this.props.history.push("/chat");       
     }
 
