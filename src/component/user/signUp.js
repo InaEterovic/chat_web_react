@@ -11,15 +11,16 @@ const SignUp = ({ history }) => {
     try {
       await firebase.auth()
       .createUserWithEmailAndPassword( email.value, password.value)
-      .then(()=> {
-              let user = firebase.auth().currentUser;
-          user.updateProfile({
-            displayName: name.value
-          })
-       });       
+      .then( cred =>{
+        const db = firebase.firestore();
+          return db.collection('users').doc(cred.user.uid).set({
+            name: name.value,
+            email: email.value
+          });
+      });       
       history.push("/chat");
     } catch (error) {
-      console(error);
+      console.log(error);
     }
   }, [history]);
 
