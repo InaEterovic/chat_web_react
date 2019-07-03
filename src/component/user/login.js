@@ -2,6 +2,7 @@ import React, { useCallback, useContext } from "react";
 import { withRouter, Redirect } from "react-router";
 import firebaseApp from "../../firebase";
 import { AuthContext } from "../../Auth";
+import { Button,Grid, Typography, TextField } from "@material-ui/core";
 
 const Login = ({ history }) => {
   const handleLogin = useCallback(
@@ -28,20 +29,39 @@ const Login = ({ history }) => {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
+    <Grid container spacing={0}
+     direction="column" 
+     alignItems="center"
+      justify="center" 
+      style={{ minHeight: '100vh' }}>
+      <Grid item xs={7} style={{margin: '2em'}}>
+          <Typography variant='h4'>Login</Typography>
+      </Grid>   
       <form onSubmit={handleLogin}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Login</button>
+      <Grid item s={10} style={{margin: '1em'}}>
+          <TextField  
+          id="outlined-name"
+          label="Email"
+          margin="normal"
+          variant="outlined"
+          name="email" 
+          type="email" 
+           />   
+      </Grid>
+      <Grid item s={10} style={{margin: '1em'}}>
+          <TextField 
+          id="outlined-password-input"
+          label="Password"
+          margin="normal"
+          variant="outlined"
+          name="password"
+          type="password"  />
+      </Grid>
+      <Grid item s={10} style={{margin: '1em'}}>
+        <Button fullWidth variant="contained" color="primary" type="submit">Login</Button>
+      </Grid>   
       </form>
-    </div>
+    </Grid>
   );
 };
 
