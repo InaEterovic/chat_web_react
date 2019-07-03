@@ -28,11 +28,7 @@ class Chat extends React.Component{
             console.log("No such document!");
              }
         });
-        
     }
-    
-
-
     render(){      
         
         return(

@@ -10,10 +10,14 @@ class Home extends React.Component{
 
 
     handleClick = (buttonName) => {
-        if(buttonName ==='signUp')
-        this.props.history.push("/signUp");
-        if(buttonName ==='login')
-        this.props.history.push("/login");
+        switch(buttonName){
+            case 'signUp':
+            this.props.history.push("/signUp");
+            break;
+            case 'login':
+            this.props.history.push("/login");
+            break
+        };
     }
 
     render()
